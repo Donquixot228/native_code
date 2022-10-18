@@ -18,7 +18,7 @@
            case "getBatteryLevel":
              guard let args = call.arguments as? [String:String] else {return}
              let name = args["name"]!
-             self.receiveBatteryLevel()
+             result("\(name) says \(self.receiveBatteryLevel())")
            default: result(FlutterMethodNotImplemented)
 
          }
