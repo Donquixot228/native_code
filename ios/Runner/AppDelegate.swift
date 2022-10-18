@@ -10,7 +10,7 @@
  let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
 
  let batteryChannel = FlutterMethodChannel(name: "battery",
-     binaryMessenger: self.flutterEngine.binaryMessenger)
+     binaryMessenger: controller.binaryMessenger)
 
     batteryChannel.setMethodCallHandler({
         (call: FlutterMethodCall, result: FlutterResult) -> Void in
@@ -20,20 +20,24 @@
              let name = args["name"]!
              self.receiveBatteryLevel()
            default: result(FlutterMethodNotImplemented)
-    }
-    })
+
+         }
+       }
+    )
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-   }
-     private func receiveBattery()->Int{
+ }
+
+
+     private func receiveBatteryLevel()->Int{
          let device = UIDevice.current
          device.isBatteryMonitoringEnabled=true
-         
+
          if device.batteryState==UIDevice.BatteryState.unknown{
              return -1
          }
         else{
             return Int(device.batteryLevel*100)
         }
-     }
+ }
  }
